@@ -36,9 +36,9 @@ class OverviewViewModel : ViewModel() {
     // The external immutable LiveData for the request status String
     val status: LiveData<String>
         get() = _status
-    private val _property = MutableLiveData<MarsProperty>()
-    val property: LiveData<MarsProperty>
-        get() = _property
+    private val _properties = MutableLiveData<List<MarsProperty>>()
+    val properties: LiveData<List<MarsProperty>>
+        get() = _properties
 
 
     /**
@@ -56,7 +56,7 @@ class OverviewViewModel : ViewModel() {
             try{
                 val listResult = MarsApi.retrofitService.getProperties()
                 if(listResult.size > 0){
-                    _property.value = listResult[0]
+                    _properties.value = listResult
                 }
             }catch (e: Exception){
                 _status.value = "Failure: ${e.message}"
